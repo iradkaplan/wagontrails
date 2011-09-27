@@ -1,4 +1,5 @@
 package edu.gatech.oad.antlab.person;
+import java.util.*;
 
 /**
  *  A simple class for person 2
@@ -11,6 +12,7 @@ package edu.gatech.oad.antlab.person;
 public class Person2 {
     /** Holds the persons real name */
     private String name;
+    public static Random gen = new Random();
 	 	/**
 	 * The constructor, takes in the persons
 	 * name
@@ -31,7 +33,16 @@ public class Person2 {
 	 */
 	private String calc(String input) {
 	  //Person 2 put your implementation here
-	  return null;
+     ArrayList<char> c = new ArrayList<char>();
+     for(int x=0; x<input.length(); x++){
+       c.add(input.substring(c,(c+1)));
+     }
+     String output = "";
+     while(!c.isEmpty()){
+       int num = gen.nextInt(c.size());
+       output += c.remove(num);
+     }
+     return output;
 	}
 	/**
 	 * Return a string rep of this object
