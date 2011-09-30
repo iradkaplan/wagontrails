@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<project name="M4" default="all" basedir=".">
+
+	<target name="init" description="sets up all the properties">
+		<property name="src" value="./src" />
+		<property name="build" value="./build" />
+		<property name="lib" value="./lib" />
+		<property name="name" value="AntLabRun" />
+		<property name="apidoc" value="./apidoc" />
+	</target>
+
+	<target name="prepare" depends="init" description="makes all the directories">
+		<mkdir dir="${apidoc}" />
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" description="compiles .java files in 'src'" depends="prepare">
+		<javac destdir="${build}">
+			<src path="${src}" />
+			<classpath>
+				<pathelement path="${build}" />
+				<pathelement path="${lib}" />
+				<fileset dir="${lib}/">
+					<include name="resources.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+
+	<target name="javadoc" description="makes java docs" depends="prepare">
+		<javadoc sourcepath="${src}" access="public" destdir="${apidoc}" packagenames="edu.gatech.oad.antdemo">
+			<classpath>
+				<pathelement path="${build}" />
+				<pathelement path="${lib}" />
+				<fileset dir="${lib}/">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+			<fileset dir="${src}/">
+				<include name="**/*.java" />
+			</fileset>
+			<bottom>
+				<![CDATA[<i>Copyright &#169; 2011 Team 1 - Wagon Trails CS2340.  All Rights Reserved.</i>]]>
+		      </bottom>
+	</javadoc>
+</target>
+
+<target name="jar" description="makes jar file of compiled classes" depends="compile">
+	<jar basedir="${build}" destfile="${name}.jar">
+		<manifest>
+			<attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain" />
+			<attribute name="Class-Path" value="${lib}/resources.jar" />
+		</manifest>
+	</jar>
+</target>
+
+<target name="run" description="runs the .class files" depends="jar">
+	<java failonerror="true" fork="true" jar="${name}.jar">
+	</java>
+</target>
+
+<target name="all" description="calls everything above" depends="init, prepare, compile, javadoc, jar, run">
+</target>
+
+<target name="clean" description="removes everything" depends="init">
+	<delete file="${name}.jar" />
+	<delete dir="${build}" />
+	<delete dir="${apidoc}" />
+</target>
+</project>
