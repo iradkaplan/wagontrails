@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <project name="AntAntAntAntAnt" default="all" >
+
+                <target name="all" depends="init,prepare,compile,javadoc,jar,run"/>
+
+
+                <target name="init">
+                        <property name="src.dir" location="./src"/>
+                        <property name="build.dir" location="./build"/>
+                        <property name="lib.dir" location="./lib"/>
+                </target>
+
+                <target name="prepare" depends="init">
+                        <mkdir dir="./build/"/>
+                        <mkdir dir="./apidoc/"/>
+                </target>
+
+                <target name="compile">
+                        <javac destdir="${build.dir}" includeantruntime = "false">
+                                <src path="${src.dir}"/>
+                                <classpath>
+                                        <pathelement path="${lib.dir}/resources.jar"/>
+                                </classpath>
+                        </javac>
+                </target>
+
+                <target name="javadoc" description="makes java docs" depends="prepare">
+					<javadoc sourcepath="${src.dir}" access="public" destdir="${apidoc}" packagenames="edu.gatech.oad.antdemo">
+						<classpath>
+							<pathelement path="${build.dir}" />
+							<pathelement path="${lib.dir}" />
+							<fileset dir="${lib.dir}/">
+								<include name="*.jar" />
+							</fileset>
+						</classpath>
+						<fileset dir="${src.dir}/">
+							<include name="**/*.java" />
+						</fileset>
+						<bottom>
+							<![CDATA[<i>Copyright &#169; 2011 Team 1 - Wagon Trails CS2340.  All Rights Reserved.</i>]]>
+		      			</bottom>
+				    </javadoc>
+			    </target>
+
+                <target name="jar">
+                        <jar destfile="m4.jar" basedir="${build.dir}">
+                                <manifest>
+                                        <attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain"/>
+                                        <attribute name="Class-Path" value="lib/resources.jar"/>
+                                </manifest>
+                        </jar>
+                </target>
+
+                <target name="run">
+                        <java jar="./m4.jar" fork="true">
+                        </java>
+                </target>
+
+
+                <target name="clean">
+                </target>
+                
+        </project>
