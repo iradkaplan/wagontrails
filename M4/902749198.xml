@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="M4" default="all" basedir=".">
 
-	<target name="init" description="sets up all the properties">
+	<target name="init" description="does the properties">
 		<property name="src" value="./src" />
 		<property name="build" value="./build" />
 		<property name="lib" value="./lib" />
