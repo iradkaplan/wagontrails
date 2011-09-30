@@ -2,7 +2,7 @@
 
         <project name="AntAntAntAntAnt" default="all" >
 
-                <target name="all" depends="init,prepare,compile,javadoc,jar,run"/>
+                <target name="all" depends="init,prepare,compile,javadoc,jar,run,clean"/>
 
 
                 <target name="init">
