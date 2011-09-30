@@ -59,6 +59,9 @@
 
 
                 <target name="clean">
+                	<delete file="m4.jar" />
+					<delete dir="./build" />
+					<delete dir="./apidoc" />
                 </target>
                 
         </project>
