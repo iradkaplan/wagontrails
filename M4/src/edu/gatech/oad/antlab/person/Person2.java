@@ -33,14 +33,14 @@ public class Person2 {
 	 */
 	private String calc(String input) {
 	  //Person 2 put your implementation here
-     ArrayList<char> c = new ArrayList<char>();
-     for(int x=0; x<input.length(); x++){
-       c.add(input.substring(c,(c+1)));
+     ArrayList<String> charList = new ArrayList<String>();
+     for(int x=0; x<input.length()-1; x++){
+       charList.add(input.substring(x,(x+1)));
      }
      String output = "";
-     while(!c.isEmpty()){
-       int num = gen.nextInt(c.size());
-       output += c.remove(num);
+     while(!charList.isEmpty()){
+       int num = gen.nextInt(charList.size());
+       output += charList.remove(num);
      }
      return output;
 	}
