@@ -1,0 +1,72 @@
+<!-- Nick Barrash, Ant File, 902758868 -->
+
+<project name="M4_Ant" default="all" >
+
+<!-- Step 1 -->
+
+	<target name="init" description="sets up properties">
+		<property name="src" location="./src" />
+		<property name="lib" location="./lib" />
+		<property name="build" value=".build" />
+		<property name="apidoc" value="./apidoc" />
+	</target>
+
+<!-- Step 2 -->
+
+	<target name="prepare" depends="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${apidoc}" />
+	</target>
+
+<!-- Step 3 -->	
+
+	<target name="compile" depends="prepare">
+		<javac destdir="${build}">
+			<src path="${src}" />
+			<classpath>
+				<pathelement path="./lib/resources.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+<!-- Step 4 -->
+
+	<target name="javadoc" depends="compile">
+		<javadoc sourcepath="${src}" access="public" destdir="${apidoc}" packagenames="edu.gatech.oad.antlab">
+			<fileset dir="${src}/">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
+	</target>
+
+<!-- Step 5 -->
+
+	<target name="jar" depends="javadoc">
+		<jar destfile="AntLabRun.jar" basedir="${build}">
+		   <manifest>
+				<attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain"/>
+				<attribute name="Class-Path" value="./lib/resources.jar" />
+		   </manifest>
+		</jar>
+	</target>
+
+<!-- Step 6 -->
+
+	<target name="run" depends="jar">
+		<java failonerror="true" fork="true" jar="AntLabRun.jar" />
+	</target>
+
+<!-- Step 7 -->
+
+	<target name="all" depends="clean, run">
+	</target>
+
+<!-- Step 8 -->	
+
+	<target name="clean">
+		<delete file="AntLabRun.jar" />
+		<delete dir="./build" />
+		<delete dir="./apidoc" />
+	</target>
+
+</project>
