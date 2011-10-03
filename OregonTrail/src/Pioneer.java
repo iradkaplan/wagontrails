@@ -2,20 +2,13 @@
 public class Pioneer {
 	private String name;
 	private boolean isAlive;
-	private profession p;
-	private health h;
+	private Profession p;
+	private Health h;
 	
-	public enum health{	//Getters and Setters
-		Healthy, Dysentary, Dead;
-	}
-	public enum profession{  //Getters and Setters
-		Farmer, Banker, Carpenter, None;
-	}
-	
-	public Pioneer(String name, profession p){
+	public Pioneer(String name, Profession p){
 		this.setName(name);
 		this.setProfession(p);
-		this.h = health.Healthy;
+		this.h = Health.HEALTHY;
 	}
 
 	public void setName(String name) {
@@ -34,19 +27,19 @@ public class Pioneer {
 		return isAlive;
 	}
 
-	public void setProfession(profession p) {
+	public void setProfession(Profession p) {
 		this.p = p;
 	}
 
-	public profession getProfession() {
+	public Profession getProfession() {
 		return p;
 	}
 
-	public void setHealth(health h) {
+	public void setHealth(Health h) {
 		this.h = h;
 	}
 
-	public health getHealth() {
+	public Health getHealth() {
 		return h;
 	}
 	
