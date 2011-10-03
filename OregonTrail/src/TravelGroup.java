@@ -8,13 +8,6 @@ public class TravelGroup {
 	private RationLevel rl;
 	private TravelPace tp;
 	
-	private enum RationLevel{
-		High, Medium, Low, Starving;
-	}
-	private enum TravelPace{
-		Stopped, Slow, Medium, Fast;
-	}
-	
 	public TravelGroup(Pioneer[] party, RationLevel rl, TravelPace tp, double money, Inventory pack){
 		this.party = party;
 		this.rl = rl;

@@ -42,5 +42,4 @@ public class Pioneer {
 	public Health getHealth() {
 		return h;
 	}
-	
 }
