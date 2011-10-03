@@ -6,20 +6,39 @@ public class Menu {
 		
 	}  
 
-	public void updateDisplay();
+	public void updateDisplay(){
+		
+	}
         
 
 
 
-	public void trailMenu();
-	public void fortMenu();
-	public void storeMenu();
-	public void riverMenu();
-	public void winGameMenu();
-	public void loseGameMenu();
+	public void trailMenu(){
+		
+	}
+	
+	public void fortMenu(){
+		
+	}
+	public void storeMenu(){
+		
+	}
+	public void riverMenu(){
+		
+	}
+	public void winGameMenu(){
+		
+	}
+	public void loseGameMenu(){
+		
+	}
 
-	public void gameSave();
-	public void gameLoad();
+	public void gameSave(){
+		
+	}
+	public void gameLoad(){
+		
+	}
 
 
 	
