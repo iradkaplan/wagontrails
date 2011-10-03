@@ -1,8 +1,10 @@
+import java.util.List;
+
 public class Menu {
 	private WorldState worldstate;
 	
 	
-	public void startUpMenu(String playerName, List<String> partyNames, Profession prof, Pace pace, Rations ration) {
+	public void startUpMenu(String playerName, List<String> partyNames, Profession prof, TravelPace pace, RationLevel ration) {
 		
 	}  
 
