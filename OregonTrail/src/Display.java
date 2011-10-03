@@ -41,7 +41,6 @@ import java.awt.event.MouseEvent;
 
 public class Display {
 	
-	public Menu thisMenu;
 	private JFrame frame;
 	private JTextField textField_PC_Character;
 	private JTextField textField_PC_MemberName;
