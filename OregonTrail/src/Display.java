@@ -17,6 +17,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextPane;
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
@@ -47,6 +48,9 @@ public class Display {
 	private final ButtonGroup travelPaceGroup = new ButtonGroup();
 	private final ButtonGroup rationsGroup = new ButtonGroup();
 	private JPanel panel_M_Main;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 	/**
 	 * switches the GUI to a different menu
@@ -56,6 +60,7 @@ public class Display {
 	 *     0) Title Screen
 	 *     1) Party Creation
 	 *     2) Travel Options
+	 *     3) End Screen
 	 */
 	public void switchMainPanel(int newPanel){
 		CardLayout cl_panel_M_Main = (CardLayout)panel_M_Main.getLayout();
@@ -83,7 +88,7 @@ public class Display {
 	 */
 	public Display() {
 		initialize();
-		switchMainPanel(1);
+		switchMainPanel(0);
 	}
 
 	/**
@@ -109,8 +114,16 @@ public class Display {
 		label_TS_Title.setHorizontalAlignment(SwingConstants.CENTER);
 		label_TS_Title.setBounds(10, 10, 444, 40);
 		panel_TS_TitleScreen.add(label_TS_Title);
-		
 		JButton button_TS_Continue = new JButton("Continue");
+		
+		//------------------ Continue Button on Party Creation mouse listener ------------------
+		button_TS_Continue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("TS Cont Clicked");
+				switchMainPanel(1);
+			}
+		});
 		button_TS_Continue.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button_TS_Continue.setBounds(136, 177, 200, 75);
 		panel_TS_TitleScreen.add(button_TS_Continue);
@@ -144,6 +157,7 @@ public class Display {
 		panel_PC_PartyCreation.add(label_PC_Profession);
 		
 		JComboBox comboBox_PC_Profession = new JComboBox();
+		comboBox_PC_Profession.setModel(new DefaultComboBoxModel(Profession.values()));
 		comboBox_PC_Profession.setBounds(111, 105, 225, 20);
 		panel_PC_PartyCreation.add(comboBox_PC_Profession);
 		
@@ -151,54 +165,14 @@ public class Display {
 		label_PC_ProfessionDescription.setBounds(111, 136, 225, 14);
 		panel_PC_PartyCreation.add(label_PC_ProfessionDescription);
 		
-		JLabel label_PC_AddHeader = new JLabel("Add party members");
-		label_PC_AddHeader.setBounds(25, 171, 94, 14);
-		panel_PC_PartyCreation.add(label_PC_AddHeader);
-		
-		JButton button_PC_Add = new JButton("Add member");
-		
-		//------------------ Add Button on Party Creation mouse listener ------------------
-		button_PC_Add.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("PC Add Clicked");
-			}
-		});
-		button_PC_Add.setBounds(25, 192, 115, 23);
-		panel_PC_PartyCreation.add(button_PC_Add);
-		
-		JLabel label_PC_MemberName = new JLabel("Name:");
-		label_PC_MemberName.setBounds(25, 227, 31, 14);
-		panel_PC_PartyCreation.add(label_PC_MemberName);
+		JLabel lblPerson = new JLabel("Person 3:");
+		lblPerson.setBounds(25, 227, 46, 14);
+		panel_PC_PartyCreation.add(lblPerson);
 		
 		textField_PC_MemberName = new JTextField();
 		textField_PC_MemberName.setColumns(10);
-		textField_PC_MemberName.setBounds(66, 224, 126, 20);
+		textField_PC_MemberName.setBounds(81, 224, 126, 20);
 		panel_PC_PartyCreation.add(textField_PC_MemberName);
-		
-		JLabel label_PC_RemoveHeader = new JLabel("Edit party members");
-		label_PC_RemoveHeader.setBounds(344, 171, 94, 14);
-		panel_PC_PartyCreation.add(label_PC_RemoveHeader);
-		
-		JButton button_PC_Remove = new JButton("Remove Member");
-		
-		//------------------ Remove Button on Party Creation mouse listener ------------------
-		button_PC_Remove.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("PC Remove Clicked");
-			}
-		});
-		button_PC_Remove.setBounds(323, 192, 115, 23);
-		panel_PC_PartyCreation.add(button_PC_Remove);
-		
-		JLabel label_PC_Member = new JLabel("Party Member:");
-		label_PC_Member.setBounds(242, 224, 71, 14);
-		panel_PC_PartyCreation.add(label_PC_Member);
-		
-		JComboBox comboBox_PC_MemberList = new JComboBox();
-		comboBox_PC_MemberList.setBounds(323, 221, 116, 20);
-		panel_PC_PartyCreation.add(comboBox_PC_MemberList);
 		
 		JButton button_PC_Continue = new JButton("Continue");
 		
@@ -213,6 +187,37 @@ public class Display {
 		button_PC_Continue.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button_PC_Continue.setBounds(157, 255, 150, 36);
 		panel_PC_PartyCreation.add(button_PC_Continue);
+		
+		JLabel label = new JLabel("Person 1:");
+		label.setBounds(25, 199, 46, 14);
+		panel_PC_PartyCreation.add(label);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(81, 196, 126, 20);
+		panel_PC_PartyCreation.add(textField);
+		
+		JLabel lblPerson_2 = new JLabel("Person 4:");
+		lblPerson_2.setBounds(257, 224, 46, 14);
+		panel_PC_PartyCreation.add(lblPerson_2);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(313, 221, 126, 20);
+		panel_PC_PartyCreation.add(textField_1);
+		
+		JLabel lblPerson_1 = new JLabel("Person 2:");
+		lblPerson_1.setBounds(257, 196, 46, 14);
+		panel_PC_PartyCreation.add(lblPerson_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(313, 193, 126, 20);
+		panel_PC_PartyCreation.add(textField_2);
+		
+		JLabel lblEnterTheNames = new JLabel("Enter the names of the people you want to travel with");
+		lblEnterTheNames.setBounds(25, 174, 261, 14);
+		panel_PC_PartyCreation.add(lblEnterTheNames);
 		
 		JPanel panel_TO_TravelOptions = new JPanel();
 		panel_M_Main.add(panel_TO_TravelOptions, "2");    //Travel Options Panel -- panel 2
@@ -279,12 +284,22 @@ public class Display {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				System.out.println("TO Cont Clicked");
-				switchMainPanel(1);
+				switchMainPanel(3);
 			}
 		});
 		button_TO_Continue.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button_TO_Continue.setBounds(157, 244, 150, 36);
 		panel_TO_TravelOptions.add(button_TO_Continue);
+		
+		JPanel panel_ES_EndScreen = new JPanel();
+		panel_M_Main.add(panel_ES_EndScreen, "3");
+		panel_ES_EndScreen.setLayout(null);
+		
+		JTextPane txtpnNowLetsGo = new JTextPane();
+		txtpnNowLetsGo.setEditable(false);
+		txtpnNowLetsGo.setText("now lets go buy the supplies we need but you cant  because we havent made  that functionality yet");
+		txtpnNowLetsGo.setBounds(102, 124, 259, 34);
+		panel_ES_EndScreen.add(txtpnNowLetsGo);
 		
 		JPanel panel_E_Error = new JPanel();
 		panel_E_Error.setBounds(0, 301, 464, 21);
