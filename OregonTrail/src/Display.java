@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -15,6 +14,9 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 ////////////////////////////////////////////////////////////////////////////////////
 //
@@ -38,13 +40,29 @@ import javax.swing.JRadioButtonMenuItem;
 ////////////////////////////////////////////////////////////////////////////////////
 
 public class Display {
-
+	
+	public Menu thisMenu;
 	private JFrame frame;
 	private JTextField textField_PC_Character;
 	private JTextField textField_PC_MemberName;
 	private final ButtonGroup travelPaceGroup = new ButtonGroup();
 	private final ButtonGroup rationsGroup = new ButtonGroup();
+	private JPanel panel_M_Main;
 
+	/**
+	 * switches the GUI to a different menu
+	 * 
+	 * @param newPanel the menu being changed to.
+	 * 
+	 *     0) Title Screen
+	 *     1) Party Creation
+	 *     2) Travel Options
+	 */
+	public void switchMainPanel(int newPanel){
+		CardLayout cl_panel_M_Main = (CardLayout)panel_M_Main.getLayout();
+		cl_panel_M_Main.show(panel_M_Main, newPanel + "");
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -66,6 +84,7 @@ public class Display {
 	 */
 	public Display() {
 		initialize();
+		switchMainPanel(1);
 	}
 
 	/**
@@ -77,13 +96,13 @@ public class Display {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel_M_Main = new JPanel();
+		panel_M_Main = new JPanel();
 		panel_M_Main.setBounds(0, 0, 464, 302);
 		frame.getContentPane().add(panel_M_Main);
 		panel_M_Main.setLayout(new CardLayout(0, 0));
 		
 		JPanel panel_TS_TitleScreen = new JPanel();
-		panel_M_Main.add(panel_TS_TitleScreen, "name_13855959777699");
+		panel_M_Main.add(panel_TS_TitleScreen, "0");    //Title Screen Panel -- panel 0
 		panel_TS_TitleScreen.setLayout(null);
 		
 		JLabel label_TS_Title = new JLabel("Welcome to the Oregon Trail");
@@ -98,7 +117,7 @@ public class Display {
 		panel_TS_TitleScreen.add(button_TS_Continue);
 		
 		JPanel panel_PC_PartyCreation = new JPanel();
-		panel_M_Main.add(panel_PC_PartyCreation, "name_13887394829248");
+		panel_M_Main.add(panel_PC_PartyCreation, "1");    //Party Creation Panel -- panel 1
 		panel_PC_PartyCreation.setLayout(null);
 		
 		JLabel label_PC_Title = new JLabel("Party Member Creation");
@@ -139,6 +158,14 @@ public class Display {
 		panel_PC_PartyCreation.add(label_PC_AddHeader);
 		
 		JButton button_PC_Add = new JButton("Add member");
+		
+		//------------------ Add Button on Party Creation mouse listener ------------------
+		button_PC_Add.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("PC Add Clicked");
+			}
+		});
 		button_PC_Add.setBounds(25, 192, 115, 23);
 		panel_PC_PartyCreation.add(button_PC_Add);
 		
@@ -156,6 +183,14 @@ public class Display {
 		panel_PC_PartyCreation.add(label_PC_RemoveHeader);
 		
 		JButton button_PC_Remove = new JButton("Remove Member");
+		
+		//------------------ Remove Button on Party Creation mouse listener ------------------
+		button_PC_Remove.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("PC Remove Clicked");
+			}
+		});
 		button_PC_Remove.setBounds(323, 192, 115, 23);
 		panel_PC_PartyCreation.add(button_PC_Remove);
 		
@@ -168,12 +203,21 @@ public class Display {
 		panel_PC_PartyCreation.add(comboBox_PC_MemberList);
 		
 		JButton button_PC_Continue = new JButton("Continue");
+		
+		//------------------ Continue Button on Party Creation mouse listener ------------------
+		button_PC_Continue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("PC Cont Clicked");
+				switchMainPanel(2);
+			}
+		});
 		button_PC_Continue.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button_PC_Continue.setBounds(157, 255, 150, 36);
 		panel_PC_PartyCreation.add(button_PC_Continue);
 		
 		JPanel panel_TO_TravelOptions = new JPanel();
-		panel_M_Main.add(panel_TO_TravelOptions, "name_35207980453775");
+		panel_M_Main.add(panel_TO_TravelOptions, "2");    //Travel Options Panel -- panel 2
 		panel_TO_TravelOptions.setLayout(null);
 		
 		JLabel label_TO_Title = new JLabel("Travel Options");
@@ -231,6 +275,15 @@ public class Display {
 		panel_TO_TravelOptions.add(radioBtn_TO_Rations4);
 		
 		JButton button_TO_Continue = new JButton("Continue");
+		
+		//------------------ Continue Button on Travel Options mouse listener ------------------
+		button_TO_Continue.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println("TO Cont Clicked");
+				switchMainPanel(1);
+			}
+		});
 		button_TO_Continue.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		button_TO_Continue.setBounds(157, 244, 150, 36);
 		panel_TO_TravelOptions.add(button_TO_Continue);
