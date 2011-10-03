@@ -144,7 +144,6 @@ public class Display {
 		panel_PC_PartyCreation.add(label_PC_Profession);
 		
 		JComboBox comboBox_PC_Profession = new JComboBox();
-		comboBox_PC_Profession.setModel(new DefaultComboBoxModel(Profession.values()));
 		comboBox_PC_Profession.setBounds(111, 105, 225, 20);
 		panel_PC_PartyCreation.add(comboBox_PC_Profession);
 		
