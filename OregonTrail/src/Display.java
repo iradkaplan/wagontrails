@@ -17,6 +17,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JTextPane;
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -36,21 +38,36 @@ import javax.swing.JTextPane;
 //          1) Title Screen Panel <TS>
 //          2) Party Creation Panel <PC>
 //          3) Travel Options Panel <TO>
+//          4) End Screen
 //      - Error Panel <E>
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
 public class Display {
 	
+	private Menu menu;
+	
 	private JFrame frame;
-	private JTextField textField_PC_Character;
-	private JTextField textField_PC_MemberName;
+	private JTextField textField_PC_PlayerName;
+	private JTextField textField_PC_Name3;
 	private final ButtonGroup travelPaceGroup = new ButtonGroup();
 	private final ButtonGroup rationsGroup = new ButtonGroup();
 	private JPanel panel_M_Main;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textField_PC_Name1;
+	private JTextField textField_PC_Name4;
+	private JTextField textField_PC_Name2;
+	
+	private JRadioButton radioBtn_TO_Pace1;
+	private JRadioButton radioBtn_TO_Pace2;
+	private JRadioButton radioBtn_TO_Pace3;
+	private JRadioButton radioBtn_TO_Pace4;
+	
+	private JRadioButton radioBtn_TO_Rations1;
+	private JRadioButton radioBtn_TO_Rations2;
+	private JRadioButton radioBtn_TO_Rations3;
+	private JRadioButton radioBtn_TO_Rations4;
+	
+	private JTextPane textPane_ES_TravelGroup;
 
 	/**
 	 * switches the GUI to a different menu
@@ -65,6 +82,52 @@ public class Display {
 	public void switchMainPanel(int newPanel){
 		CardLayout cl_panel_M_Main = (CardLayout)panel_M_Main.getLayout();
 		cl_panel_M_Main.show(panel_M_Main, newPanel + "");
+	}
+	
+	/**
+	 * Returns the Ration Level (enum) selected by
+	 * the user on the Travel Options page.
+	 * @return the new Ration Level
+	 */
+	private RationLevel getRationsSelection(){
+		RationLevel current;
+		if(radioBtn_TO_Rations1.isSelected()){
+			current = RationLevel.STARVING;
+		} else
+		if(radioBtn_TO_Rations2.isSelected()){
+			current = RationLevel.LOW;
+		} else
+		if(radioBtn_TO_Rations3.isSelected()){
+			current = RationLevel.MEDIUM;
+		} else {
+			current = RationLevel.HIGH;
+		}
+		return current;
+	}
+	
+	/**
+	 * Returns the Travel Pace (enum) selected by
+	 * the user on the Travel Options page.
+	 * @return the new Travel Pace
+	 */
+	private TravelPace getTravelSelection(){
+		TravelPace current;
+		if(radioBtn_TO_Pace1.isSelected()){
+			current = TravelPace.STOPPED;
+		} else
+		if(radioBtn_TO_Pace2.isSelected()){
+			current = TravelPace.SLOW;
+		} else
+		if(radioBtn_TO_Pace3.isSelected()){
+			current = TravelPace.MEDIUM;
+		} else {
+			current = TravelPace.FAST;
+		}
+		return current;
+	}
+	
+	private void showTravelGroupInfo(){
+		textPane_ES_TravelGroup.setText(menu.getTravelGroupString());
 	}
 	
 	/**
@@ -87,6 +150,7 @@ public class Display {
 	 * Create the application.
 	 */
 	public Display() {
+		menu = new Menu();
 		initialize();
 		switchMainPanel(0);
 	}
@@ -119,8 +183,7 @@ public class Display {
 		//------------------ Continue Button on Party Creation mouse listener ------------------
 		button_TS_Continue.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("TS Cont Clicked");
+			public void mousePressed(MouseEvent arg0) {
 				switchMainPanel(1);
 			}
 		});
@@ -146,17 +209,17 @@ public class Display {
 		label_PC_CharacterName.setBounds(25, 83, 60, 14);
 		panel_PC_PartyCreation.add(label_PC_CharacterName);
 		
-		textField_PC_Character = new JTextField();
-		textField_PC_Character.setText("T-Pain");
-		textField_PC_Character.setBounds(111, 80, 225, 20);
-		panel_PC_PartyCreation.add(textField_PC_Character);
-		textField_PC_Character.setColumns(10);
+		textField_PC_PlayerName = new JTextField();
+		textField_PC_PlayerName.setText("T-Pain");
+		textField_PC_PlayerName.setBounds(111, 80, 225, 20);
+		panel_PC_PartyCreation.add(textField_PC_PlayerName);
+		textField_PC_PlayerName.setColumns(10);
 		
 		JLabel label_PC_Profession = new JLabel("Profession:");
 		label_PC_Profession.setBounds(25, 108, 54, 14);
 		panel_PC_PartyCreation.add(label_PC_Profession);
 		
-		JComboBox comboBox_PC_Profession = new JComboBox();
+		final JComboBox comboBox_PC_Profession = new JComboBox();
 		comboBox_PC_Profession.setModel(new DefaultComboBoxModel(Profession.values()));
 		comboBox_PC_Profession.setBounds(111, 105, 225, 20);
 		panel_PC_PartyCreation.add(comboBox_PC_Profession);
@@ -169,18 +232,17 @@ public class Display {
 		lblPerson.setBounds(25, 227, 46, 14);
 		panel_PC_PartyCreation.add(lblPerson);
 		
-		textField_PC_MemberName = new JTextField();
-		textField_PC_MemberName.setColumns(10);
-		textField_PC_MemberName.setBounds(81, 224, 126, 20);
-		panel_PC_PartyCreation.add(textField_PC_MemberName);
+		textField_PC_Name3 = new JTextField();
+		textField_PC_Name3.setColumns(10);
+		textField_PC_Name3.setBounds(81, 224, 126, 20);
+		panel_PC_PartyCreation.add(textField_PC_Name3);
 		
 		JButton button_PC_Continue = new JButton("Continue");
 		
 		//------------------ Continue Button on Party Creation mouse listener ------------------
 		button_PC_Continue.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("PC Cont Clicked");
+			public void mousePressed(MouseEvent arg0) {
 				switchMainPanel(2);
 			}
 		});
@@ -192,28 +254,28 @@ public class Display {
 		label.setBounds(25, 199, 46, 14);
 		panel_PC_PartyCreation.add(label);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(81, 196, 126, 20);
-		panel_PC_PartyCreation.add(textField);
+		textField_PC_Name1 = new JTextField();
+		textField_PC_Name1.setColumns(10);
+		textField_PC_Name1.setBounds(81, 196, 126, 20);
+		panel_PC_PartyCreation.add(textField_PC_Name1);
 		
 		JLabel lblPerson_2 = new JLabel("Person 4:");
 		lblPerson_2.setBounds(257, 224, 46, 14);
 		panel_PC_PartyCreation.add(lblPerson_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(313, 221, 126, 20);
-		panel_PC_PartyCreation.add(textField_1);
+		textField_PC_Name4 = new JTextField();
+		textField_PC_Name4.setColumns(10);
+		textField_PC_Name4.setBounds(313, 221, 126, 20);
+		panel_PC_PartyCreation.add(textField_PC_Name4);
 		
 		JLabel lblPerson_1 = new JLabel("Person 2:");
 		lblPerson_1.setBounds(257, 196, 46, 14);
 		panel_PC_PartyCreation.add(lblPerson_1);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(313, 193, 126, 20);
-		panel_PC_PartyCreation.add(textField_2);
+		textField_PC_Name2 = new JTextField();
+		textField_PC_Name2.setColumns(10);
+		textField_PC_Name2.setBounds(313, 193, 126, 20);
+		panel_PC_PartyCreation.add(textField_PC_Name2);
 		
 		JLabel lblEnterTheNames = new JLabel("Enter the names of the people you want to travel with");
 		lblEnterTheNames.setBounds(25, 174, 261, 14);
@@ -237,42 +299,44 @@ public class Display {
 		label_TO_RationsHeader.setBounds(10, 154, 52, 14);
 		panel_TO_TravelOptions.add(label_TO_RationsHeader);
 		
-		JRadioButton radioBtn_TO_Pace1 = new JRadioButton("Stopped");
+		radioBtn_TO_Pace1 = new JRadioButton("Stopped");
 		travelPaceGroup.add(radioBtn_TO_Pace1);
 		radioBtn_TO_Pace1.setBounds(20, 77, 149, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Pace1);
 		
-		JRadioButton radioBtn_TO_Pace2 = new JRadioButton("Slow - 5 miles per day");
+		radioBtn_TO_Pace2 = new JRadioButton("Slow - 5 miles per day");
 		travelPaceGroup.add(radioBtn_TO_Pace2);
 		radioBtn_TO_Pace2.setBounds(231, 77, 149, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Pace2);
 		
-		JRadioButton radioBtn_TO_Pace3 = new JRadioButton("Medium - 10 miles per day");
+		radioBtn_TO_Pace3 = new JRadioButton("Medium - 10 miles per day");
+		radioBtn_TO_Pace3.setSelected(true);
 		travelPaceGroup.add(radioBtn_TO_Pace3);
 		radioBtn_TO_Pace3.setBounds(20, 100, 149, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Pace3);
 		
-		JRadioButton radioBtn_TO_Pace4 = new JRadioButton("Fast - 15 miles per day");
+		radioBtn_TO_Pace4 = new JRadioButton("Fast - 15 miles per day");
 		travelPaceGroup.add(radioBtn_TO_Pace4);
 		radioBtn_TO_Pace4.setBounds(231, 100, 149, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Pace4);
 		
-		JRadioButton radioBtn_TO_Rations1 = new JRadioButton("Starving");
+		radioBtn_TO_Rations1 = new JRadioButton("Starving");
 		rationsGroup.add(radioBtn_TO_Rations1);
 		radioBtn_TO_Rations1.setBounds(20, 175, 187, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Rations1);
 		
-		JRadioButton radioBtn_TO_Rations2 = new JRadioButton("Low - 1 pound of food per person");
+		radioBtn_TO_Rations2 = new JRadioButton("Low - 1 pound of food per person");
 		rationsGroup.add(radioBtn_TO_Rations2);
 		radioBtn_TO_Rations2.setBounds(231, 175, 187, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Rations2);
 		
-		JRadioButton radioBtn_TO_Rations3 = new JRadioButton("Medium - 3 pounds of food per person");
+		radioBtn_TO_Rations3 = new JRadioButton("Medium - 3 pounds of food per person");
+		radioBtn_TO_Rations3.setSelected(true);
 		rationsGroup.add(radioBtn_TO_Rations3);
 		radioBtn_TO_Rations3.setBounds(20, 198, 209, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Rations3);
 		
-		JRadioButton radioBtn_TO_Rations4 = new JRadioButton("High - 5 pounds of food per person");
+		radioBtn_TO_Rations4 = new JRadioButton("High - 5 pounds of food per person");
 		rationsGroup.add(radioBtn_TO_Rations4);
 		radioBtn_TO_Rations4.setBounds(231, 198, 193, 23);
 		panel_TO_TravelOptions.add(radioBtn_TO_Rations4);
@@ -281,10 +345,24 @@ public class Display {
 		
 		//------------------ Continue Button on Travel Options mouse listener ------------------
 		button_TO_Continue.addMouseListener(new MouseAdapter() {
+			
+			/**
+			 * -Switches to the End Screen panel
+			 * -Gets the pioneer names from the Party Creation panel and puts
+			 *  them into an array
+			 * -Calls startUpMenu
+			 * 
+			 * @param arg0 when the mouse is pressed on the continue button
+			 */
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("TO Cont Clicked");
+			public void mousePressed(MouseEvent arg0) {
 				switchMainPanel(3);
+				ArrayList<String> names = new ArrayList<String>(4);
+				names.add(textField_PC_Name1.getText());
+				names.add(textField_PC_Name2.getText());
+				names.add(textField_PC_Name3.getText());
+				names.add(textField_PC_Name4.getText());
+				menu.startUpMenu(textField_PC_PlayerName.getText(), names, (Profession)comboBox_PC_Profession.getSelectedItem(),  getTravelSelection(), getRationsSelection());
 			}
 		});
 		button_TO_Continue.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -295,11 +373,10 @@ public class Display {
 		panel_M_Main.add(panel_ES_EndScreen, "3");
 		panel_ES_EndScreen.setLayout(null);
 		
-		JTextPane txtpnNowLetsGo = new JTextPane();
-		txtpnNowLetsGo.setEditable(false);
-		txtpnNowLetsGo.setText("now lets go buy the supplies we need but you cant  because we havent made  that functionality yet");
-		txtpnNowLetsGo.setBounds(102, 124, 259, 34);
-		panel_ES_EndScreen.add(txtpnNowLetsGo);
+		textPane_ES_TravelGroup = new JTextPane();
+		textPane_ES_TravelGroup.setEditable(false);
+		textPane_ES_TravelGroup.setBounds(102, 124, 259, 34);
+		panel_ES_EndScreen.add(textPane_ES_TravelGroup);
 		
 		JPanel panel_E_Error = new JPanel();
 		panel_E_Error.setBounds(0, 301, 464, 21);
@@ -310,4 +387,5 @@ public class Display {
 		lblNewLabel.setBounds(10, 3, 444, 14);
 		panel_E_Error.add(lblNewLabel);
 	}
+	
 }

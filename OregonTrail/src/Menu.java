@@ -58,6 +58,15 @@ public class Menu {
 		
 	}
 
-
+	
+	/**
+	 * Tells world state to get the TravelGroup's
+	 * toString.
+	 * 
+	 * @return the worldState's travel group's toString
+	 */
+	public String getTravelGroupString(){
+		return worldstate.getTravelGroup().toString();
+	}
 	
 }
