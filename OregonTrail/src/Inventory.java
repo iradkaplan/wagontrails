@@ -1,4 +1,3 @@
-
 public class Inventory {
 	private int qtyOxen;
 	private int qtyFood;
@@ -7,8 +6,9 @@ public class Inventory {
 	private int qtyWagonWheel;
 	private int qtyWagonTongue;
 	private int totalWeight;
-	
-	public Inventory(int oxen, int food, int clothes, int axel, int wheel, int tongue){
+
+	public Inventory(int oxen, int food, int clothes, int axel, int wheel,
+			int tongue) {
 		qtyOxen = oxen;
 		qtyFood = food;
 		qtyClothes = clothes;
@@ -16,8 +16,8 @@ public class Inventory {
 		qtyWagonWheel = wheel;
 		qtyWagonTongue = tongue;
 	}
-	
-	public int calculateWeight(){
+
+	public int calculateWeight() {
 		return 0;
 	}
 
@@ -76,5 +76,5 @@ public class Inventory {
 	public int getTotalWeight() {
 		return totalWeight;
 	}
-		
+
 }

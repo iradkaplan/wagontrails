@@ -1,11 +1,10 @@
-
 public class Pioneer {
 	private String name;
 	private boolean isAlive;
 	private Profession p;
 	private Health h;
-	
-	public Pioneer(String name, Profession p){
+
+	public Pioneer(String name, Profession p) {
 		this.setName(name);
 		this.setProfession(p);
 		this.h = Health.HEALTHY;
