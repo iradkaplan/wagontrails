@@ -1,29 +1,20 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JTextPane;
@@ -50,44 +41,81 @@ import javax.swing.JTextPane;
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * The Class Display which controls the GUI.
+ */
 public class Display {
 
+	/** The menu. */
 	private Menu menu;
 
+	/** The panel_ t s_ title screen. */
 	private JPanel panel_TS_TitleScreen;
 	
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The text field_ p c_ player name. */
 	private JTextField textField_PC_PlayerName;
+	
+	/** The text field_ p c_ name3. */
 	private JTextField textField_PC_Name3;
+	
+	/** The travel pace group. */
 	private final ButtonGroup travelPaceGroup = new ButtonGroup();
+	
+	/** The rations group. */
 	private final ButtonGroup rationsGroup = new ButtonGroup();
+	
+	/** The panel_ m_ main. */
 	private JPanel panel_M_Main;
+	
+	/** The text field_ p c_ name1. */
 	private JTextField textField_PC_Name1;
+	
+	/** The text field_ p c_ name4. */
 	private JTextField textField_PC_Name4;
+	
+	/** The text field_ p c_ name2. */
 	private JTextField textField_PC_Name2;
 
+	/** The radio btn_ t o_ pace1. */
 	private JRadioButton radioBtn_TO_Pace1;
+	
+	/** The radio btn_ t o_ pace2. */
 	private JRadioButton radioBtn_TO_Pace2;
+	
+	/** The radio btn_ t o_ pace3. */
 	private JRadioButton radioBtn_TO_Pace3;
+	
+	/** The radio btn_ t o_ pace4. */
 	private JRadioButton radioBtn_TO_Pace4;
 
+	/** The radio btn_ t o_ rations1. */
 	private JRadioButton radioBtn_TO_Rations1;
+	
+	/** The radio btn_ t o_ rations2. */
 	private JRadioButton radioBtn_TO_Rations2;
+	
+	/** The radio btn_ t o_ rations3. */
 	private JRadioButton radioBtn_TO_Rations3;
+	
+	/** The radio btn_ t o_ rations4. */
 	private JRadioButton radioBtn_TO_Rations4;
 
+	/** The text pane_ e s_ travel group. */
 	private JTextPane textPane_ES_TravelGroup;
 
+	/** The combo box_ p c_ profession. */
 	private JComboBox comboBox_PC_Profession;
 
 	/**
-	 * switches the GUI to a different menu
+	 * switches the GUI to a different menu.
+	 *
+	 * @param newPanel the menu being changed to.
 	 * 
-	 * @param newPanel
-	 *            the menu being changed to.
-	 * 
-	 *            0) Title Screen 1) Party Creation 2) Travel Options 3) End
-	 *            Screen
+	 * 0) Title Screen 1) Party Creation 2) Travel Options 3) End
+	 * Screen
 	 */
 	public void switchMainPanel(int newPanel) {
 		CardLayout cl_panel_M_Main = (CardLayout) panel_M_Main.getLayout();
@@ -134,12 +162,17 @@ public class Display {
 		return current;
 	}
 
+	/**
+	 * Show travel group info.
+	 */
 	private void showTravelGroupInfo() {
 		textPane_ES_TravelGroup.setText(menu.getTravelGroupString());
 	}
 
 	/**
 	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -410,7 +443,6 @@ public class Display {
 			 */
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				boolean checkNames;
 				Profession prof = Profession.NONE;
 				ArrayList<String> names = new ArrayList<String>(4);
 				names.add(textField_PC_Name1.getText());

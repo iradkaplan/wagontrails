@@ -1,6 +1,5 @@
 /**
- * @author Ira
- * 
+ * The Class WorldState which holds all of the information about the current state of the game.
  */
 public class WorldState {
 	private TravelGroup travelGroup;
